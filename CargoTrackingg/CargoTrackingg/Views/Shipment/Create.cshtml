@@ -1,0 +1,161 @@
+﻿@model CargoTrackingg.Models.Shipment
+
+@{
+    ViewData["Title"] = "New Shipment Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                        <li>@modelError.ErrorMessage</li>
+            }
+            </ul>
+        </div>
+}
+
+
+<div class="container">
+    <!-- Başlık -->
+    <div class="tracking-status">
+        <h2>New Shipment Request</h2>
+    </div>
+
+    <!-- Form -->
+    <div class="form-container">
+        <form asp-action="Create" asp-controller="Shipment" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Status" value="Created" />
+            <input type="hidden" asp-for="IsApproved" value="false" />
+
+            <div class="form-group">
+                <label asp-for="SenderName"></label>
+                <input asp-for="SenderName" class="form-control" placeholder="Enter sender's full name" />
+                <span asp-validation-for="SenderName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ReceiverName"></label>
+                <input asp-for="ReceiverName" class="form-control" placeholder="Enter receiver's full name" />
+                <span asp-validation-for="ReceiverName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FromAddress"></label>
+                <textarea asp-for="FromAddress" placeholder="Enter pickup address"></textarea>
+                <span asp-validation-for="FromAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ToAddress"></label>
+                <textarea asp-for="ToAddress" placeholder="Enter delivery address"></textarea>
+                <span asp-validation-for="ToAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Weight"></label>
+                <input asp-for="Weight" type="number" placeholder="Enter package weight in kg" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PackageDescription"></label>
+                <textarea asp-for="PackageDescription" placeholder="Enter package description"></textarea>
+                <span asp-validation-for="PackageDescription" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Request</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* New Shipment Request Styles */
+    .tracking-status {
+        background-image: linear-gradient(135deg, #FF7F11 0%, #FFAA00 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 25px;
+        margin-bottom: 40px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .tracking-status h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+    .form-container {
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        margin-bottom: 40px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            color: #FF7F11;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #dddddd;
+            font-size: 16px;
+            color: #444444;
+            background-color: #f5f5f5;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+            .form-group input:focus,
+            .form-group textarea:focus,
+            .form-group select:focus {
+                box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+                border-color: #FF7F11;
+            }
+
+        .form-group textarea {
+            height: 150px;
+            resize: none;
+        }
+
+    .submit-btn {
+        background-color: #FF7F11;
+        color: white;
+        font-weight: bold;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 18px;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        width: 100%;
+        box-shadow: 0 15px 30px rgba(255, 127, 17, 0.4);
+    }
+
+        .submit-btn:hover {
+            background-color: #FFAA00;
+            box-shadow: 0 20px 40px rgba(255, 127, 17, 0.6);
+        }
+</style>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -1,0 +1,125 @@
+﻿@model List<CargoTrackingg.Models.Shipment>
+@{
+    ViewData["Title"] = "Pending Shipments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="page-header text-center mb-5">
+        <h2 class="display-5 fw-bold text-white bg-gradient py-4 px-3 shadow"
+            style="background: linear-gradient(135deg, #FF7F11, #FFAA00); border-radius: 1rem;">
+            Pending Shipments
+        </h2>
+
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center shadow-sm">
+            No pending shipments at the moment.
+        </div>
+    }
+    else
+    {
+        <div class="card shadow border-0 rounded-4">
+            <div class="card-body p-4">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Track #</th>
+                                <th>Sender</th>
+                                <th>Receiver</th>
+                                <th>Created</th>
+                                <th>Weight</th>
+                                <th>Status</th>
+                                <th>Estimated D. Date</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var shipment in Model)
+                            {
+                                <tr>
+                                    <td>@(shipment.TrackingNumber ?? "N/A")</td>
+                                    <td>@shipment.SenderName</td>
+                                    <td>@shipment.ReceiverName</td>
+                                    <td>@shipment.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                    <td>@shipment.Weight kg</td>
+                                    <td>
+                                        <select form="approveForm-@shipment.Id" name="selectedStatus" class="form-select form-select-sm">
+                                            <option value="Preparing">Preparing</option>
+                                            <option value="In Transit">In Transit</option>
+                                            <option value="Delivered">Delivered</option>
+                                        </select>
+                                    </td>
+
+                                    <td>
+                                        <input form="approveForm-@shipment.Id" type="date" name="estimatedDeliveryDate" required class="form-control form-control-sm" />
+                                    </td>
+
+                                    <td class="text-end pe-4">
+                                        <div class="d-flex justify-content-end gap-2">
+                                            <form id="approveForm-@shipment.Id" asp-action="Approve" method="post">
+                                                <input type="hidden" name="id" value="@shipment.Id" />
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <i class="fas fa-check"></i> Approve
+                                                </button>
+                                            </form>
+
+                                            <form asp-action="Reject" method="post">
+                                                <input type="hidden" name="id" value="@shipment.Id" />
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-times"></i> Reject
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- FontAwesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .table th {
+        font-weight: 600;
+        color: #343a40;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    .form-select, .form-control {
+        min-width: 140px;
+    }
+</style>

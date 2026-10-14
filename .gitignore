@@ -1,0 +1,17 @@
+# Secrets & local data - never publish
+password.txt
+*.bak
+*.mdf
+*.ldf
+
+# Visual Studio / build output
+.vs/
+**/.vs/
+bin/
+obj/
+*.user
+*.suo
+
+# OS files
+.DS_Store
+Thumbs.db

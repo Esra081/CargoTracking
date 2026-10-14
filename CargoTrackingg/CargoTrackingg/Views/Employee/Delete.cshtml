@@ -1,0 +1,16 @@
+﻿@model CargoTrackingg.Models.Employee
+
+<h2>Personel Sil</h2>
+
+<h4>Ad Soyad: @Model.FullName</h4>
+<h4>Görev: @Model.Position</h4>
+<h4>Email: @Model.Email</h4>
+<h4>Telefon: @Model.PhoneNumber</h4>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group mt-3">
+        <input type="submit" value="Sil" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </div>
+</form>

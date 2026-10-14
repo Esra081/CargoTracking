@@ -1,0 +1,95 @@
+﻿@model CargoTrackingg.Models.Shipment
+
+@{
+    ViewData["Title"] = "Shipment Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="tracking-status">
+        <h2>Shipment Report</h2>
+    </div>
+
+    <div class="report-table">
+        <div class="row">
+            <div class="col label">Tracking Number:</div>
+            <div class="col value">@Model.TrackingNumber</div>
+        </div>
+        <div class="row">
+            <div class="col label">Sender:</div>
+            <div class="col value">@Model.SenderName</div>
+        </div>
+        <div class="row">
+            <div class="col label">Receiver:</div>
+            <div class="col value">@Model.ReceiverName</div>
+        </div>
+        <div class="row">
+            <div class="col label">Status:</div>
+            <div class="col value">@Model.Status</div>
+        </div>
+        <div class="row">
+            <div class="col label">Estimated Delivery:</div>
+            <div class="col value">@Model.EstimatedDeliveryDate.ToShortDateString()</div>
+        </div>
+        <div class="row">
+            <div class="col label">Weight:</div>
+            <div class="col value">@Model.Weight kg</div>
+        </div>
+        <div class="row">
+            <div class="col label">Created At:</div>
+            <div class="col value">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</div>
+        </div>
+        <div class="row">
+            <div class="col label">Approval Status:</div>
+            <div class="col value">@(Model.IsApproved ? "Approved" : "Not Approved")</div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tracking-status {
+        background-image: linear-gradient(135deg, #FF7F11 0%, #FFAA00 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        text-align: center;
+    }
+
+        .tracking-status h2 {
+            font-size: 32px;
+            margin: 0;
+        }
+
+    .report-table {
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 18px;
+    }
+
+    .row {
+        display: flex;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+    .label {
+        flex: 1;
+        font-weight: 600;
+        color: #FF7F11;
+    }
+
+    .value {
+        flex: 2;
+        color: #333;
+    }
+</style>

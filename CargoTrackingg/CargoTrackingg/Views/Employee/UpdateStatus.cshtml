@@ -1,0 +1,93 @@
+﻿@model CargoTrackingg.Models.ShipmentStatusHistory
+@{
+    ViewData["Title"] = "Update Shipment Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5" style="background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+
+    <!-- Başlık -->
+    <div class="text-center mb-4">
+        <h2 style="color: #ff7e00;">UPDATE SHIPMENT STATUS</h2>
+    </div>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+
+    <!-- Adres Bilgileri -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <strong>From Address:</strong>
+            <p>@Model.FromAddress</p>
+        </div>
+        <div class="col-md-6">
+            <strong>To Address:</strong>
+            <p>@Model.ToAddress</p>
+        </div>
+    </div>
+
+    <!-- Form Başlangıcı -->
+    <form asp-action="UpdateStatus" asp-controller="Shipment" method="post">
+        <input type="hidden" asp-for="ShipmentId" />
+
+        <!-- Durum Seçimi -->
+        <div class="form-group mb-3">
+            <label asp-for="Status"><strong>Shipment Status</strong></label>
+            <select asp-for="Status" class="form-control" id="Status" required>
+                <option value="">-- Select Status --</option>
+                <option value="Prepared">Prepared</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Delivered">Delivered</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <!-- Şube Seçimi (sadece "In Transit" ise gösterilir) -->
+        <div class="form-group mb-3" id="branchSelector" style="display: none;">
+            <label asp-for="BranchId"><strong>Select Branch</strong></label>
+            <select asp-for="BranchId" class="form-control" asp-items="ViewBag.Branches">
+                <option value="">-- Select Branch --</option>
+            </select>
+            <span asp-validation-for="BranchId" class="text-danger"></span>
+        </div>
+
+        <!-- Submit Butonu -->
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-warning text-white px-4 py-2">Update Status</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const statusDropdown = document.getElementById("Status");
+            const branchDiv = document.getElementById("branchSelector");
+
+            function toggleBranchSelector() {
+                if (statusDropdown.value === "In Transit") {
+                    branchDiv.style.display = "block";
+                } else {
+                    branchDiv.style.display = "none";
+                }
+            }
+
+            // Başlangıçta kontrol et
+            toggleBranchSelector();
+
+            // Değişince dinle
+            statusDropdown.addEventListener("change", toggleBranchSelector);
+        });
+    </script>
+}

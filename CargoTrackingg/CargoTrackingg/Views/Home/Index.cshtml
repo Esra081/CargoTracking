@@ -1,0 +1,190 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - CargoTrackingg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .banner {
+            background-image: url('/images/WhatsApp Image 2025-05-17 at 20.18.24.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+            .banner h1 {
+                font-size: 56px;
+                margin-bottom: 20px;
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            }
+
+            .banner p {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+        .tracking-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+            .tracking-form input[type="text"] {
+                flex: 1;
+                padding: 15px;
+                border: none;
+                border-radius: 5px 0 0 5px;
+                font-size: 18px;
+            }
+
+            .tracking-form button {
+                background-color: #FF7F11;
+                color: white;
+                padding: 15px 30px;
+                border: none;
+                border-radius: 0 5px 5px 0;
+                cursor: pointer;
+                font-size: 18px;
+                text-transform: uppercase;
+                font-weight: bold;
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+                .tracking-form button:hover {
+                    background-color: #FFAA00;
+                    box-shadow: 0 20px 40px rgba(255, 127, 17, 0.6);
+                }
+
+        .chart-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+
+        .chart {
+            width: 400px;
+            background-color: #fff;
+            border-radius: 25px;
+            padding: 50px 30px 80px 30px; /* Üst, Sağ, Alt, Sol */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>Choose Your Quality Delivery of Your Cargo</h1>
+
+        <form class="tracking-form" asp-controller="Shipment" asp-action="DetailsByTracking" method="get">
+            <input type="text" name="trackingNumber" placeholder="Enter your tracking number">
+            <button type="submit">Track Now</button>
+        </form>
+
+
+
+    </div>
+
+    <div class="chart-container">
+        <div class="chart">
+            <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const salesData = [120, 250, 400, 550, 700, 850];
+        const years = ['2019', '2020', '2021', '2022', '2023', '2024'];
+
+        // Bar Chart
+        const barConfig = {
+            type: 'bar',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Sales Growth by Year',
+                    data: [],
+                    backgroundColor: '#FF7F11',
+                    borderColor: '#FF7F11',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1500,
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        const barChart = new Chart(document.getElementById('barChart'), barConfig);
+
+        // Pie Chart
+        const pieConfig = {
+            type: 'pie',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Sales Distribution by Year',
+                    data: [],
+                    backgroundColor: ['#FF7F11', '#FFA500', '#FFC107', '#FFD700', '#FFE135', '#FFF700'],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1500,
+                }
+            }
+        };
+
+        const pieChart = new Chart(document.getElementById('pieChart'), pieConfig);
+
+        // Verileri yavaşça yükle
+        let index = 0;
+        function loadData() {
+            if (index < salesData.length) {
+                barChart.data.datasets[0].data.push(salesData[index]);
+                pieChart.data.datasets[0].data.push(salesData[index]);
+                barChart.update();
+                pieChart.update();
+                index++;
+                setTimeout(loadData, 800); // Daha yavaş yükleme
+            }
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

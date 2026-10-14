@@ -1,0 +1,66 @@
+﻿@model CargoTrackingg.ViewModels.RegisterViewModel
+
+<div class="container">
+    <h2 class="mt-4 text-center">Register</h2>
+
+    <!-- Bildirimler -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div class="alert alert-danger">@error.ErrorMessage</div>
+        }
+    }
+
+    <form method="post">
+        <div class="mb-3">
+            <label>Full Name</label>
+            <input type="text" class="form-control" asp-for="FullName" placeholder="Enter your full name" required>
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" asp-for="Email" placeholder="Enter your email" required>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" asp-for="Password" placeholder="Enter your password" required>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Confirm your password" required>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Role</label>
+            <select class="form-control" asp-for="Role" required>
+                <option value="">Select a role</option>
+                <option value="Customer">Customer</option>
+                <option value="Personnel">Personnel</option>
+            </select>
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-warning w-100">Register</button>
+    </form>
+</div>

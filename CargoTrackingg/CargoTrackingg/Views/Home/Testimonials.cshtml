@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Testimonials";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - CargoTrackingg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>
+        .testimonials-hero {
+            background-image: url('/images/WhatsApp Image 2025-05-17 at 20.27.21.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            color: #ffffff;
+        }
+
+            .testimonials-hero h1 {
+                font-size: 4rem;
+                font-weight: 700;
+                text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            }
+
+            .testimonials-hero p {
+                font-size: 1.25rem;
+                text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            }
+    </style>
+</head>
+<body>
+    <section class="testimonials-hero d-flex flex-column justify-content-center">
+        <div class="container">
+            <h1 class="display-4">Testimonials</h1>
+            <p class="lead">Hear what our clients say about our services.</p>
+        </div>
+    </section>
+
+    <section class="testimonials-section py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-0">
+                        <img src="/images/WhatsApp Image 2025-05-17 at 20.27.38.jpeg" class="card-img-top rounded-circle w-50 mx-auto mt-4" alt="Client 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Esra Kılıç</h5>
+                            <p class="card-text">"Excellent service and fast delivery. Highly recommend!"</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-0">
+                        <img src="/images/WhatsApp Image 2025-05-17 at 20.27.47.jpeg" class="card-img-top rounded-circle w-50 mx-auto mt-4" alt="Client 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Ceren Nizamoğlu</h5>
+                            <p class="card-text">"Professional team and reliable logistics solutions."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-0">
+                        <img src="/images/WhatsApp Image 2025-05-17 at 20.28.00.jpeg" class="card-img-top rounded-circle w-50 mx-auto mt-4" alt="Client 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Numan Çırpan</h5>
+                            <p class="card-text">"Seamless tracking and excellent customer support."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js"></script>
+</body>
+</html>

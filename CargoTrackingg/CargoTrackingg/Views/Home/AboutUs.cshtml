@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - CargoTrackingg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>
+        .about-hero {
+            background-image: url('/images/WhatsApp Image 2025-05-17 at 20.19.11.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            color: #ffffff;
+        }
+        .about-hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        .about-hero p {
+            font-size: 1.25rem;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <section class="about-hero d-flex flex-column justify-content-center">
+        <div class="container">
+            <h1 class="display-4">About Us</h1>
+            <p class="lead">Learn more about our mission, values, and commitment to excellence in logistics.</p>
+        </div>
+    </section>
+
+    <section class="about-section py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-6 mb-4">
+                    <img src="/images/WhatsApp Image 2025-05-17 at 20.19.39.jpeg" class="img-fluid rounded shadow-lg" alt="Our Story">
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h2>Our Story</h2>
+                    <p>With decades of experience, we have grown to become a trusted partner for businesses around the world, providing efficient and reliable logistics solutions.</p>
+                    <p>From small startups to large corporations, our dedicated team ensures that every shipment reaches its destination safely and on time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js"></script>
+</body>
+</html>

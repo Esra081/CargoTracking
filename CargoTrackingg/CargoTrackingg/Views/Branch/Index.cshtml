@@ -1,0 +1,30 @@
+﻿@model IEnumerable<CargoTrackingg.Models.Branch>
+
+<h2>Branch List</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">Add New Branch</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Branch Name</th>
+            <th>City</th>
+            <th>Adress</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var branch in Model)
+        {
+            <tr>
+                <td>@branch.Name</td>
+                <td>@branch.City</td>
+                <td>@branch.Address</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@branch.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@branch.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

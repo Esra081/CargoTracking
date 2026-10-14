@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Find Shipment by Tracking Number";
+}
+
+<!-- Stil kutusu -->
+<div class="container mt-5">
+    <div class="p-5 rounded" style="background: linear-gradient(to right, #ff8c00, #ffa500); color: white; text-align: center;">
+        <h2 class="mb-4 font-weight-bold" style="font-weight: 800;">TRACK YOUR SHIPMENT</h2>
+
+        <form asp-action="UpdateStatusByTracking" method="post" class="d-flex justify-content-center">
+            <div class="input-group" style="max-width: 800px; width: 100%;">
+                <input type="text" class="form-control form-control-lg" id="trackingNumber" name="trackingNumber" placeholder="Enter your tracking number" required />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-light font-weight-bold px-4" style="color: #ff8c00;">TRACK NOW</button>
+                </div>
+            </div>
+        </form>
+
+        @if (ViewBag.NotFound != null)
+        {
+            <div class="text-white mt-3 font-weight-bold">@ViewBag.NotFound</div>
+        }
+        @if (ViewBag.Error != null)
+        {
+            <div class="text-white mt-3 font-weight-bold">@ViewBag.Error</div>
+        }
+    </div>
+</div>

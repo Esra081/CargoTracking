@@ -1,0 +1,15 @@
+﻿@model CargoTrackingg.Models.TrackingStatus
+
+<h2>Durumu Sil</h2>
+
+<h4>Takip Numarası: @Model.TrackingNumber</h4>
+<h4>Durum: @Model.StatusDescription</h4>
+<h4>Tarih: @Model.StatusDate.ToString("g")</h4>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group mt-3">
+        <input type="submit" value="Sil" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </div>
+</form>

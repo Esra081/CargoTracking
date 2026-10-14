@@ -1,0 +1,175 @@
+﻿@using System.Globalization
+@model List<IGrouping<int, ShipmentStatusHistory>>
+
+@{
+    ViewData["Title"] = "Status History";
+}
+
+<!-- Tarih filtresi -->
+<form asp-action="MyStatusHistory" asp-controller="Shipment" method="get" class="form-inline mb-4 d-flex justify-content-center">
+    <div class="form-group mr-2">
+        <label for="year" class="mr-2">Year:</label>
+        <select name="year" id="year" class="form-control">
+            @for (int y = 2020; y <= DateTime.Now.Year; y++)
+            {
+                <option value="@y" selected="@(y == (int)ViewBag.SelectedYear ? "selected" : null)">@y</option>
+            }
+        </select>
+
+        <select name="month" id="month" class="form-control ml-2">
+            @for (int m = 1; m <= 12; m++)
+            {
+                <option value="@m" selected="@(m == (int)ViewBag.SelectedMonth ? "selected" : null)">
+                    @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
+                </option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary ml-2">Filter</button>
+</form>
+
+<!-- İçerik -->
+<div class="container">
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var shipmentGroup in Model)
+        {
+            var currentStatus = shipmentGroup.Last().Status;
+            var progressWidth = currentStatus == "Delivered" ? "100%" :
+            currentStatus == "In Transit" ? "50%" : "25%";
+
+            <div class="tracking-status mb-5">
+                <div class="progress">
+                    <div class="progress-bar" style="width:@progressWidth;"></div>
+                </div>
+                <p>Current Status: <strong>@currentStatus</strong></p>
+            </div>
+
+            <div class="tracking-history mb-5">
+                <h3>Tracking History</h3>
+                @{
+                    int step = 1;
+                    foreach (var item in shipmentGroup.OrderBy(h => h.UpdatedAt))
+                    {
+                        <div class="tracking-step">
+                            <div class="step-number">@step</div>
+                            <div class="step-details">
+                                <div class="step-title">@item.Status</div>
+                                <div class="step-date">@item.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</div>
+                            </div>
+                        </div>
+                        step++;
+                    }
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <p>No tracking history found.</p>
+    }
+</div>
+
+<!-- Stil -->
+<style>
+    .tracking-status {
+        background-image: linear-gradient(135deg, #FF7F11 0%, #FFAA00 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 25px;
+        margin-bottom: 40px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .progress {
+        background-color: #ffffff50;
+        border-radius: 30px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    .progress-bar {
+        background-color: #ffffff;
+        height: 15px;
+        width: 70%;
+        border-radius: 30px;
+        box-shadow: 0 0 20px rgba(255,255,255,0.8);
+    }
+
+    .tracking-history {
+        background-color: #ffffff;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .tracking-history h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #444444;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+        }
+
+    .tracking-step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+        .tracking-step .step-number {
+            background-color: #FF7F11;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .tracking-step .step-details {
+            color: #444444;
+            background-color: #FFEECC;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+            .tracking-step .step-details .step-title {
+                font-weight: bold;
+                font-size: 20px;
+                margin-bottom: 5px;
+                color: #FF7F11;
+            }
+
+            .tracking-step .step-details .step-date {
+                color: #888888;
+                font-size: 14px;
+            }
+
+        .tracking-step::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #FF7F11;
+            top: 0;
+            bottom: 0;
+            left: 25px;
+            z-index: 0;
+            border-radius: 10px;
+        }
+</style>

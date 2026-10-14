@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Track Number Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <!-- Track Number Search Box -->
+    <div class="search-container" style="background: linear-gradient(90deg, #ff7e00, #ffa500); padding: 40px; border-radius: 15px; margin-bottom: 30px; color: white; text-align: center;">
+        <h2 style="font-weight: bold; margin-bottom: 20px;">Track Your Shipment</h2>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <input type="text" name="TrackNumber" class="form-control" placeholder="Enter your tracking number" style="flex: 0.7; padding: 15px; border-radius: 5px; border: none; font-size: 16px;" />
+            <button class="btn" style="background-color: #ffffff; color: #ff7e00; padding: 15px 30px; border-radius: 5px; font-weight: bold;">TRACK NOW</button>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="form-container" style="background-color: #ffffff; border-radius: 15px; padding: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.15);">
+        <form method="post" action="/Shipment/SearchByTrackingNumber">
+            <!-- Status -->
+            <div class="form-group mb-4">
+                <label>Status</label>
+                <select name="Status" class="form-control" style="height: 40px;">
+                    <option>Preparing</option>
+                    <option>In Transit</option>
+                    <option>Delivered</option>
+                </select>
+            </div>
+
+            <!-- City Selection -->
+            <div class="form-group mb-4">
+                <label>City</label>
+                <select name="City" class="form-control" style="height: 40px;">
+                    <option>Istanbul</option>
+                    <option>Ankara</option>
+                    <option>Izmit</option>
+                    <option>Duzce</option>
+                    <option>Giresun</option>
+                </select>
+            </div>
+
+            <!-- Branch Selection -->
+            <div class="form-group mb-4">
+                <label>Branch</label>
+                <select name="Branch" class="form-control" style="height: 40px;">
+                    <option>Branch 1</option>
+                    <option>Branch 2</option>
+                    <option>Branch 3</option>
+                    <option>Branch 4</option>
+                    <option>Branch 5</option>
+                </select>
+            </div>
+
+            <!-- Update Button -->
+            <button type="submit" class="btn btn-lg" style="background-color: #ff7e00; color: white; width: 100%; border-radius: 30px; font-weight: bold;">UPDATE</button>
+        </form>
+    </div>
+</div>

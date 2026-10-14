@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CargoTrackingg.ViewModels.OrderViewModel>
+@{
+    ViewData["Title"] = "Orders - CargoTrackingg";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentPeriod = Context.Request.Query["period"];
+}
+@if (ViewData["DebugMessage"] != null)
+{
+    <div class="alert alert-info text-center">
+        @ViewData["DebugMessage"]
+    </div>
+}
+
+<div class="container mt-5">
+    <!-- Page Header -->
+    <div class="orders-header text-center mb-5" style="background: linear-gradient(90deg, #ff7e00 0%, #ffb800 100%); color: white; padding: 30px 20px; border-radius: 15px;">
+        <h1>ORDERS</h1>
+        <p>View your Daily, Weekly, and Monthly orders.</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters mb-4 text-center">
+        <a href="?period=daily" class="btn btn-primary mx-2 @(currentPeriod == "daily" ? "active" : "")">Daily</a>
+        <a href="?period=weekly" class="btn btn-primary mx-2 @(currentPeriod == "weekly" ? "active" : "")">Weekly</a>
+        <a href="?period=monthly" class="btn btn-primary mx-2 @(currentPeriod == "monthly" ? "active" : "")">Monthly</a>
+    </div>
+
+    <!-- Orders Table -->
+    <div id="orders-table" class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Tracking Number</th>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Branch</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.TrackingNumber</td>
+                            <td>@order.Sender</td>
+                            <td>@order.Receiver</td>
+                            <td>@order.Date.ToString("dd/MM/yyyy")</td>
+                            <td>@order.Status</td>
+                            <td>@order.BranchName</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">No orders found for this period.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

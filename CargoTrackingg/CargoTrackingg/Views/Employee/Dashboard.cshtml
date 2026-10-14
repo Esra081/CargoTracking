@@ -1,0 +1,10 @@
+﻿public IActionResult EmployeeDashboard()
+{
+    var user = _userManager.GetUserAsync(User).Result;
+    if (user.Role != "Personnel")
+    {
+        return Forbid(); // Yetkisiz erişim
+    }
+
+    return View();
+}

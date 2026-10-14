@@ -1,0 +1,58 @@
+﻿@model List<CargoTrackingg.Models.Shipment>
+
+@{
+    ViewData["Title"] = "Cargo Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-uppercase font-weight-bold" style="color: #FF7F11;">
+        My Shipments
+    </h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center shadow">
+            No shipments found for your account.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive shadow rounded">
+            <table class="table table-bordered" style="border-color: #FFA726;">
+                <thead style="background-color: #FF7F11; color: white;">
+                    <tr class="text-center">
+                        <th>Tracking Number</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var shipment in Model)
+                    {
+                        <tr class="text-center align-middle" style="background-color: white;">
+                            <td><strong>@shipment.TrackingNumber</strong></td>
+                            <td>@shipment.SenderName</td>
+                            <td>@shipment.ReceiverName</td>
+                            <td>@shipment.FromAddress</td>
+                            <td>@shipment.ToAddress</td>
+                            <td>
+                                <span class="badge text-white"
+                              style="
+                                          background-color: #FF7F11;
+                                          padding: 8px 14px;
+                                          font-size: 14px;
+                                          border-radius: 20px;">
+                                    @shipment.Status
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
